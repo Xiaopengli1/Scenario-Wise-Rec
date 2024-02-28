@@ -9,9 +9,9 @@ from scenario_wise_rec.models.multi_domain import Star, SharedBottom, MMOE, PLE,
 
 
 def get_ali_ccp_data_dict(data_path='./data/ali-ccp'):
-    df_train = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_train.csv'))
-    df_val = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_val.csv'))
-    df_test = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_test.csv'))
+    df_train = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_train_sample.csv'))
+    df_val = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_val_sample.csv'))
+    df_test = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_test_sample.csv'))
     print("train : val : test = %d %d %d" % (len(df_train), len(df_val), len(df_test)))
     train_idx, val_idx = df_train.shape[0], df_train.shape[0] + df_val.shape[0]
     data = pd.concat([df_train, df_val, df_test], axis=0)
@@ -35,9 +35,9 @@ def get_ali_ccp_data_dict(data_path='./data/ali-ccp'):
 
 
 def get_ali_ccp_data_dict_adasparse(data_path='./data/ali-ccp'):
-    df_train = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_train.csv'))
-    df_val = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_val.csv'))
-    df_test = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_test.csv'))
+    df_train = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_train_sample.csv'))
+    df_val = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_val_sample.csv'))
+    df_test = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_test_sample.csv'))
     print("train : val : test = %d %d %d" % (len(df_train), len(df_val), len(df_test)))
 
     train_idx, val_idx = df_train.shape[0], df_train.shape[0] + df_val.shape[0]

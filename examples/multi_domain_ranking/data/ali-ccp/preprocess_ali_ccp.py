@@ -142,7 +142,7 @@ if __name__ == "__main__":
     test_data = all_data[-len_test_data:]
     print("start save all ")
 
-    train_data.to_csv(save_path + "ali_ccp_train.csv", index=False)
-    val_data.reset_index(drop=True).to_csv(save_path + "ali_ccp_val.csv", index=False)
-    test_data.reset_index(drop=True).to_csv(save_path + "ali_ccp_test.csv", index=False)
+    train_data.to_csv(save_path + "ali_ccp_train_sample.csv", index=False)
+    val_data.reset_index(drop=True).to_csv(save_path + "ali_ccp_val_sample.csv", index=False)
+    test_data.reset_index(drop=True).to_csv(save_path + "ali_ccp_test_sample.csv", index=False)
     print("complete")
