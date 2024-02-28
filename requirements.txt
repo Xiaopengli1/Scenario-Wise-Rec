@@ -1,0 +1,6 @@
+joblib==1.1.1
+numpy==1.23.5
+pandas==1.5.3
+scikit_learn==1.2.1
+torch==1.13.1
+tqdm==4.64.1
