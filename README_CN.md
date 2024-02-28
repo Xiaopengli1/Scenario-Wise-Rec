@@ -14,35 +14,35 @@
 
 数据集统计表格：
 
-| Dataset   | Domain number | Interaction | User    | Item      |
-|-----------|---------------|-------------|---------|-----------|
-| MovieLens | Domain 0      | 210,747     | 1,325   | 3,429     |
-|           | Domain 1      | 395,556     | 2,096   | 3,508     |
-|           | Domain 2      | 393,906     | 2,619   | 3,595     |
-| KuaiRand  | Domain 0      | 2,407,352   | 961     | 1,596,491 |
-|           | Domain 1      | 7,760,237   | 991     | 2,741,383 |
-|           | Domain 2      | 895,385     | 171     | 332,210   |
-|           | Domain 3      | 402,366     | 832     | 547,908   |
-|           | Domain 4      | 183,403     | 832     | 43,106    |
-| Ali-CCP   | Domain 0      | 32,236,951  | 89,283  | 465,870   |
-|           | Domain 1      | 639,897     | 2,561   | 188,610   |
-|           | Domain 2      | 52,439,671  | 150,471 | 467,122   |
-| Tenrec    | Domain 0      | 64,475,979  | 997,263 | 1,365,660 |
-|           | Domain 1      | 54,277,815  | 989,911 | 791,826   |
-|           | Domain 2      | 1,588,512   | 455,636 | 152,601   |
+| 数据集       | 域        | Interaction数目 | User数目  | Item数目    |
+|-----------|----------|---------------|---------|-----------|
+| MovieLens | Domain 0 | 210,747       | 1,325   | 3,429     |
+|           | Domain 1 | 395,556       | 2,096   | 3,508     |
+|           | Domain 2 | 393,906       | 2,619   | 3,595     |
+| KuaiRand  | Domain 0 | 2,407,352     | 961     | 1,596,491 |
+|           | Domain 1 | 7,760,237     | 991     | 2,741,383 |
+|           | Domain 2 | 895,385       | 171     | 332,210   |
+|           | Domain 3 | 402,366       | 832     | 547,908   |
+|           | Domain 4 | 183,403       | 832     | 43,106    |
+| Ali-CCP   | Domain 0 | 32,236,951    | 89,283  | 465,870   |
+|           | Domain 1 | 639,897       | 2,561   | 188,610   |
+|           | Domain 2 | 52,439,671    | 150,471 | 467,122   |
+| Tenrec    | Domain 0 | 64,475,979    | 997,263 | 1,365,660 |
+|           | Domain 1 | 54,277,815    | 989,911 | 791,826   |
+|           | Domain 2 | 1,588,512     | 455,636 | 152,601   |
 
 模型介绍：
 
-| Model         | model-name     | Link                                              |
-|---------------|----------------|---------------------------------------------------|
-| Shared Bottom | SharedBottom   | [Link](https://link.springer.com/article/10.1023/A:1007379606734) |
-| MMOE          | MMOE           | [Link](https://www.kdd.org/kdd2018/accepted-papers/view/modeling-task-relationships-in-multi-task-learning-with-multi-gate-mixture-) |
-| PLE           | PLE            | [Link](https://dl.acm.org/doi/10.1145/3383313.3412236) |
-| SAR-Net       | sarnet         | [Link](https://arxiv.org/abs/2110.06475) |
-| STAR          | star           | [Link](https://dl.acm.org/doi/abs/10.1145/3459637.3481941) | 
-| M2M           | m2m            | [Link](https://dl.acm.org/doi/abs/10.1145/3488560.3498479) |
-| AdaSparse     | adasparse      | [Link](https://arxiv.org/abs/2206.13108) |
-| AdaptDHM      | adaptdhm       | [Link](https://arxiv.org/abs/2211.12105) |
+| 模型            | package中模型名称 | Paper链接                                                                                                                              |
+|---------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Shared Bottom | SharedBottom | [Link](https://link.springer.com/article/10.1023/A:1007379606734)                                                                    |
+| MMOE          | MMOE         | [Link](https://www.kdd.org/kdd2018/accepted-papers/view/modeling-task-relationships-in-multi-task-learning-with-multi-gate-mixture-) |
+| PLE           | PLE          | [Link](https://dl.acm.org/doi/10.1145/3383313.3412236)                                                                               |
+| SAR-Net       | sarnet       | [Link](https://arxiv.org/abs/2110.06475)                                                                                             |
+| STAR          | star         | [Link](https://dl.acm.org/doi/abs/10.1145/3459637.3481941)                                                                           | 
+| M2M           | m2m          | [Link](https://dl.acm.org/doi/abs/10.1145/3488560.3498479)                                                                           |
+| AdaSparse     | adasparse    | [Link](https://arxiv.org/abs/2206.13108)                                                                                             |
+| AdaptDHM      | adaptdhm     | [Link](https://arxiv.org/abs/2211.12105)                                                                                             |
 
 
 [//]: # (Check our paper: [Scenario-Wise Rec: A Multi-Scenario Recommendation Benchmark]&#40;&#41;.)
@@ -82,7 +82,7 @@ python run_ali_ccp_ctr_ranking_multi_domain.py --model star
 ### Step 1: 数据集下载
 
 数据集介绍
-| Dataset                                                                         | Domain  Number | Users           | Items | Items |    Download     |
+| 数据集                                                                         | 域数目 | user 数目           | Items数目 | Interaction数目 |    下载地址     |
 |:--------------------------------------------------------------------------------|:---------------|:----------------|:-----:|:-----:|:---------------:|
 | [Movie-Lens](https://grouplens.org/datasets/movielens/)                         | 3              | 6k              |  4k   |  1M   | [ML_Download](https://drive.google.com/file/d/1c8yqnw0U5oTfz_Yowtd9D37UUIIAeIiM/view?usp=sharing) | 
 | [KuaiRand](https://kuairand.com/)                                               | 5              | 1k              |  4M   |  11M  | [KR_Download](https://drive.google.com/file/d/1-39JNTQ-NCW1O0bFA6YtP_Rg1yl0QiSQ/view?usp=sharing) | 
