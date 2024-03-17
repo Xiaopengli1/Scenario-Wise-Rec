@@ -60,7 +60,7 @@ Note that the pip installation could be behind the recent updates. So, if you wa
 
 First, clone the repo:
 ```sh
-git clone git clone https://github.com/Xiaopengli1/Scenario-Wise-Rec.git
+git clone https://github.com/Xiaopengli1/Scenario-Wise-Rec.git
 ```
 
 Then, 
