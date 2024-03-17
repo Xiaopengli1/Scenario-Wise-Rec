@@ -59,7 +59,7 @@ pip install -i https://test.pypi.org/simple/ scenario-wise-rec
 
 首先, clone the repo:
 ```sh
-git clone git clone https://github.com/Xiaopengli1/Scenario-Wise-Rec.git
+git clone https://github.com/Xiaopengli1/Scenario-Wise-Rec.git
 ```
 
 切换目录：
