@@ -102,7 +102,7 @@ python run_movielens_rank_multi_domain.py --model_name star --device "cuda:0" --
 
 [//]: # (## Citation)
 
-## Build your own multi-scenario dataset/model
+## Build Your own Multi-scenario Dataset/Model
 We offer two template files [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/examples/multi_domain_ranking/run_example.py) and [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py) for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
 
 ### Dataset process
