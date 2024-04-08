@@ -28,7 +28,7 @@ def get_kuairand_data_multidomain(data_path="./data/kuairand/"):
     scenario_features = ["domain_indicator"]
 
     sparse_features = [col for col in col_names if col not in dense_features and
-                       col not in useless_features and col not in ['is_click']]
+                       col not in useless_features and col not in ['is_click','domain_indicator']]
     # target = "is_click"
 
     for feature in dense_features:

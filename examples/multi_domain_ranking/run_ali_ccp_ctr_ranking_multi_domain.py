@@ -20,7 +20,7 @@ def get_ali_ccp_data_dict(data_path='./data/ali-ccp'):
     domain_num = 3
     col_names = data.columns.values.tolist()
     dense_cols = ['D109_14', 'D110_14', 'D127_14', 'D150_14', 'D508', 'D509', 'D702', 'D853']
-    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['click', 'purchase']]
+    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['click', 'purchase','domain_indicator']]
     print("sparse cols:%d dense cols:%d" % (len(sparse_cols), len(dense_cols)))
     dense_feas = [DenseFeature(col) for col in dense_cols]
     sparse_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in sparse_cols]
@@ -52,10 +52,10 @@ def get_ali_ccp_data_dict_adasparse(data_path='./data/ali-ccp'):
 
     domain_map = {1: 0, 2: 1, 3: 2}
     data["domain_indicator"] = data["301"].apply(lambda fea: domain_map[fea])
-    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['click', 'purchase']]
-    # del data['301']
-
+    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['click', 'purchase','domain_indicator']]
     scenario_cols = ['domain_indicator']
+    del data['301']
+
     print("scenario_cols:%d sparse cols:%d dense cols:%d" % (len(scenario_cols), len(sparse_cols), len(dense_cols)))
 
     dense_feas = [DenseFeature(col) for col in dense_cols]

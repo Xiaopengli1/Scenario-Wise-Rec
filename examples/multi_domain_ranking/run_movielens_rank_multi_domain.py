@@ -28,7 +28,7 @@ def get_movielens_data_rank_multidomain(data_path="data/ml-1m"):
 
     dense_features = ['age']
     scenario_features = ['domain_indicator']
-    sparse_features = ['user_id', 'movie_id', 'gender', 'occupation', 'zip', "cate_id", "domain_indicator"]
+    sparse_features = ['user_id', 'movie_id', 'gender', 'occupation', 'zip', "cate_id"]
     target = "rating"
 
     for feature in dense_features:
