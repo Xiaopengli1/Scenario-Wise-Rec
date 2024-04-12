@@ -102,18 +102,18 @@ python run_movielens_rank_multi_domain.py --model_name star --device "cuda:0" --
 
 [//]: # (## Citation)
 
-## Build your own multi-scenario dataset/model
-We offer two template files [run_example.py]() and [base_example.py]() for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
+## Build Your Own Multi-scenario Dataset/Model
+We offer two template files [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/examples/multi_domain_ranking/run_example.py) and [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py) for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
 
-### Dataset process
-see [run_example.py]().
-During function `get_example_dataset(input_path)` to process your dataset. Be noted the feature 
-`"domain_indicator"` is the feature to indicate domains. Other implementation details could refer the file.
+### Instructions on processing your dataset
+see [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/examples/multi_domain_ranking/run_example.py).
+During the function `get_example_dataset(input_path)` to process your dataset. Be noted the feature 
+`"domain_indicator"` is the feature to indicate domains. For other implementation details refer the file.
 
-### Dataset process
-see [base_example.py]().
+### Instructions on building your model
+see [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py).
 Where you could build your own model here, where we left two spaces for users to implement scenario-shared 
-and scenario-specific models. And we also leave comment on how to format the output dimension. Please refer to 
+and scenario-specific models. We also leave comments on how to format the output dimension. Please refer to 
 the file to see more details.  
 
 ## Contributing
