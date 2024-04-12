@@ -76,13 +76,13 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
         model = Star(dense_feas+sparse_feas, domain_num, fcn_dims =[256, 128, 64, 32, 16, 8], aux_dims= [32])
     elif model_name == "SharedBottom":
         model = SharedBottom(dense_feas+sparse_feas, domain_num, bottom_params={"dims": [512]},
-                             tower_params=[{"dims": [256, 128, 64, 32, 16, 8]}])
+                             tower_params={"dims": [256, 128, 64, 32, 16, 8]})
     elif model_name == "MMOE":
         model = MMOE(dense_feas+sparse_feas, domain_num, n_expert=domain_num,
-                     expert_params={"dims": [256, 128, 64, 32, 16, 8]}, tower_params=[{"dims": [16]}])
+                     expert_params={"dims": [256, 128, 64, 32, 16, 8]}, tower_params={"dims": [16]})
     elif model_name == "PLE":
         model = PLE(dense_feas+sparse_feas, domain_num, n_level=1, n_expert_specific=2, n_expert_shared=1,
-                    expert_params={"dims": [256, 128, 64, 32, 16, 8]}, tower_params=[{"dims": [16]}])
+                    expert_params={"dims": [256, 128, 64, 32, 16, 8]}, tower_params={"dims": [16]})
     elif model_name == "adasparse":
         model = AdaSparse(sce_features = scenario_feas, agn_features=sparse_feas, form='Fusion',
                           epsilon=1e-2, alpha=1.0, delta_alpha=1e-4, mlp_params={"dims": [256, 128, 64, 32, 16, 8],
