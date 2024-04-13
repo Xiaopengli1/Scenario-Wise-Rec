@@ -6,3 +6,5 @@ from .adasparse import AdaSparse
 from .sarnet import Sarnet
 from .m2m import M2M
 from .adaptdhm import AdaptDHM
+from .epnet import EPNet
+from .ppnet import PPNet
