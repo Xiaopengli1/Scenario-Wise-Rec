@@ -29,6 +29,8 @@ Dataset information is listed as follows:
 | Tenrec    | Domain 0      | 64,475,979  | 997,263 | 1,365,660 |
 |           | Domain 1      | 54,277,815  | 989,911 | 791,826   |
 |           | Domain 2      | 1,588,512   | 455,636 | 152,601   |
+| Douban    | To be added   | -           |-        | -         |
+| Mind      | To be added   | -           |-        | -         |
 
 Models information is listed as follows:
 
@@ -42,6 +44,8 @@ Models information is listed as follows:
 | M2M           | m2m            | [Link](https://dl.acm.org/doi/abs/10.1145/3488560.3498479) |
 | AdaSparse     | adasparse      | [Link](https://arxiv.org/abs/2206.13108) |
 | AdaptDHM      | adaptdhm       | [Link](https://arxiv.org/abs/2211.12105) |
+| EPNet         | ppnet          | [Link](https://arxiv.org/abs/2302.01115) |
+| PPNet         | epnet          | [Link](https://arxiv.org/abs/2302.01115) |
 
 
 [//]: # (Check our paper: [Scenario-Wise Rec: A Multi-Scenario Recommendation Benchmark]&#40;&#41;.)
@@ -92,6 +96,9 @@ Four Multi-Scenario/Multi-Domain Datasets are provided. See the following Table.
 | [KuaiRand](https://kuairand.com/)                                               | 5              | 1k              |  4M   |  11M  | [KR_Download](https://drive.google.com/file/d/1-39JNTQ-NCW1O0bFA6YtP_Rg1yl0QiSQ/view?usp=sharing) | 
 | [Ali-CCP](https://tianchi.aliyun.com/dataset/408)                               | 3              | 238k            | 467k  |  85M  | [AC_Download](https://drive.google.com/drive/folders/1plgdPg_MGlgJbyFr6FAqmWnAgkL-qAxm?usp=sharing) | 
 | [Tenrec](https://static.qblv.qq.com/qblv/h5/algo-frontend/tenrec\_dataset.html) | 3              | 1M              |  2M   | 120M  | [TR_Download](https://drive.google.com/file/d/1mZcUlbXoEjBLTT7y9wqJacHzZsmh0V-I/view?usp=sharing) | 
+| [Douban]()                                                                      | 3              | -              |  -     | -     | [DB_Download]() | 
+| [Mind]()                                                                        | 4              | -              |  -     | -     | [MD_Download]() | 
+
 
 Substitute the full-dataset with sampled dataset, at the same time, uncomment the code in the accordingly python-script.
 
