@@ -8,7 +8,7 @@ from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from scenario_wise_rec.models.multi_domain.adaptdhm import AdaptDHM
 from scenario_wise_rec.trainers import CTRTrainer
 from scenario_wise_rec.utils.data import DataGenerator, reduce_mem_usage
-from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M
+from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, EPNet, PPNet
 
 def get_tenrec_multidomain(data_path="./data/tenrec/"):
     data = pd.read_csv(data_path + "/tenrec_sample.csv")
@@ -41,9 +41,6 @@ def get_tenrec_multidomain(data_path="./data/tenrec/"):
 
     for feature in del_features:
         del data[feature]
-    for feature in sparse_features:
-        lbe = LabelEncoder()
-        data[feature] = lbe.fit_transform(data[feature])
     for feat in tqdm(sparse_features):  # encode sparse feature
         lbe = LabelEncoder()
         data[feat] = lbe.fit_transform(data[feat])
@@ -58,6 +55,57 @@ def get_tenrec_multidomain(data_path="./data/tenrec/"):
 
     return dense_feas, sparse_feas, scenario_feas, data, y, domain_num
 
+def get_tenrec_multidomain_ppnet(data_path="./data/tenrec/"):
+    data = pd.read_csv(data_path + "/tenrec_sample.csv")
+    # data = reduce_mem_usage(pd.read_csv(data_path + "/tenrec_a.csv",header=0))
+    # d_list = ["tenrec_b.csv", "tenrec_c.csv", "tenrec_d.csv", "tenrec_e.csv", "tenrec_f.csv"]
+    # for d in  d_list:
+    #     name_path = data_path + d
+    #     d_tmp = reduce_mem_usage(pd.read_csv(name_path, header=0))
+    #     data = pd.concat([data,d_tmp])
+    #     data.reset_index(inplace=True, drop=True)
+
+    domain_map = {"0": 0, "1": 1, "\\N": 2}
+    data["domain_indicator"] = data["video_category"].apply(lambda x: domain_map[x])
+    data["domain_indicator"] = data["domain_indicator"].astype('int')
+    domain_num = data.domain_indicator.nunique()
+
+    dense_features = ["watching_times"]
+    sparse_features = ['video_category', 'gender', 'age', 'hist_1', 'hist_2', 'hist_3',
+                       'hist_4', 'hist_5', 'hist_6', 'hist_7', 'hist_8', 'hist_9', 'hist_10']
+    del_features = ['follow', 'like', 'share',]
+    scenario_features = ["domain_indicator"]
+    id_features = ["user_id", "item_id"]
+
+
+    # target = "is_click"
+
+    for feature in dense_features:
+        data[feature] = data[feature].apply(lambda x: convert_numeric(x))
+    if dense_features:
+        sca = MinMaxScaler()  # scaler dense feature
+        data[dense_features] = sca.fit_transform(data[dense_features])
+
+    for feature in del_features:
+        del data[feature]
+    for feature in id_features:
+        lbe = LabelEncoder()
+        data[feature] = lbe.fit_transform(data[feature])
+    for feat in tqdm(sparse_features):  # encode sparse feature
+        lbe = LabelEncoder()
+        data[feat] = lbe.fit_transform(data[feat])
+
+    dense_feas = [DenseFeature(feature_name) for feature_name in dense_features]
+    sparse_feas = [SparseFeature(feature_name, vocab_size=data[feature_name].nunique(), embed_dim=16) for feature_name
+                   in sparse_features]
+    scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_features]
+    id_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in id_features]
+
+    y = data["click"]
+    del data["click"]
+
+    return dense_feas, sparse_feas, scenario_feas, id_feas, data, y, domain_num
+
 
 def convert_numeric(val):
     """
@@ -68,7 +116,10 @@ def convert_numeric(val):
 def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_decay, device, save_dir, seed):
     torch.manual_seed(seed)
     dataset_name = "Tenrec"
-    dense_feas, sparse_feas, scenario_feas, x, y, domain_num= get_tenrec_multidomain(dataset_path)
+    if model_name=="ppnet":
+        dense_feas, sparse_feas, scenario_feas, id_feas, x, y, domain_num = get_tenrec_multidomain_ppnet(dataset_path)
+    else:
+        dense_feas, sparse_feas, scenario_feas, x, y, domain_num= get_tenrec_multidomain(dataset_path)
     dg = DataGenerator(x, y)
     train_dataloader, val_dataloader, test_dataloader = dg.generate_dataloader(split_ratio=[0.8, 0.1],
                                                                                batch_size=batch_size)
@@ -94,6 +145,10 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
     elif model_name == "adaptdhm":
         model = AdaptDHM(features=sparse_feas+scenario_feas, fcn_dims=[256, 128, 64, 32, 16, 8], cluster_num=3,
                          beta=0.9, device=device)
+    elif model_name == "epnet":
+        model = EPNet(sce_features=scenario_feas, agn_features=sparse_feas+dense_feas, fcn_dims=[256, 128, 64, 32, 16, 8])
+    elif model_name == ("ppnet"):
+        model = PPNet(id_features= id_feas, agn_features=sparse_feas+dense_feas+scenario_feas,domain_num= domain_num,fcn_dims=[256, 128, 64, 32, 16, 8])
     ctr_trainer = CTRTrainer(model, dataset_name, optimizer_params={"lr": learning_rate, "weight_decay": weight_decay},
                              n_epoch=epoch, earlystop_patience=5, device=device, model_path=save_dir,
                              scheduler_params={"step_size": 4, "gamma": 0.95})

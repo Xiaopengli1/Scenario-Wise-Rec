@@ -5,43 +5,29 @@ import pandas as pd
 from tqdm import tqdm
 from scenario_wise_rec.basic.features import DenseFeature, SparseFeature
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-from scenario_wise_rec.models.multi_domain.adaptdhm import AdaptDHM
 from scenario_wise_rec.trainers import CTRTrainer
 from scenario_wise_rec.utils.data import DataGenerator
-from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, EPNet, PPNet
+from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet
 
 
-
-def get_kuairand_data_multidomain(data_path="./data/kuairand/"):
-    data = pd.read_csv(data_path+"/kuairand_sample.csv")
-    data = data[data["tab"].apply(lambda x: x in [1, 0, 4, 2, 6])]
-    data.reset_index(drop=True, inplace=True)
-
-    data.rename(columns={'tab': "domain_indicator"}, inplace=True)
+def get_mind_data_multidomain(data_path="./data/mind"):
+    data = pd.read_csv(data_path+"/mind_sample.csv")
+    mapping = {"news":0, "lifestyle":1, "sports":2, "finance":3}
+    data["domain_indicator"] = data["Category"].apply(lambda x: mapping[x])
     domain_num = data.domain_indicator.nunique()
 
-    col_names = data.columns.to_list()
-
-    dense_features = ["follow_user_num", "fans_user_num", "friend_user_num", "register_days"]
-
-    useless_features = ["play_time_ms", "duration_ms", "profile_stay_time", "comment_stay_time"]
+    dense_features = []
+    useless_features = ["Category"]
     scenario_features = ["domain_indicator"]
-
-    sparse_features = [col for col in col_names if col not in dense_features and
-                       col not in useless_features and col not in ['is_click','domain_indicator']]
-    # target = "is_click"
+    sparse_features = ["User_ID", "News_ID", "SubCategory"]
 
     for feature in dense_features:
         data[feature] = data[feature].apply(lambda x: convert_numeric(x))
     if dense_features:
         sca = MinMaxScaler()  # scaler dense feature
         data[dense_features] = sca.fit_transform(data[dense_features])
-
     for feature in useless_features:
         del data[feature]
-    for feature in scenario_features:
-        lbe = LabelEncoder()
-        data[feature] = lbe.fit_transform(data[feature])
     for feature in tqdm(sparse_features):  # encode sparse feature
         lbe = LabelEncoder()
         data[feature] = lbe.fit_transform(data[feature])
@@ -51,47 +37,33 @@ def get_kuairand_data_multidomain(data_path="./data/kuairand/"):
                    in sparse_features]
     scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_features]
 
-    y=data["is_click"]
-    del data["is_click"]
-
+    y=data["label"]
+    del data["label"]
     return dense_feas, sparse_feas, scenario_feas, data, y, domain_num
 
-def get_kuairand_data_multidomain_ppnet(data_path="./data/kuairand/"):
-    data = pd.read_csv(data_path+"/kuairand_sample.csv")
-    data = data[data["tab"].apply(lambda x: x in [1, 0, 4, 2, 6])]
-    data.reset_index(drop=True, inplace=True)
-
-    data.rename(columns={'tab': "domain_indicator"}, inplace=True)
+def get_mind_data_multidomain_ppnet(data_path="./data/mind"):
+    data = pd.read_csv(data_path+"/mind_sample.csv")
+    mapping = {"news":0, "lifestyle":1, "sports":2, "finance":3}
+    data["domain_indicator"] = data["Category"].apply(lambda x: mapping[x])
     domain_num = data.domain_indicator.nunique()
 
-    col_names = data.columns.to_list()
-
-    dense_features = ["follow_user_num", "fans_user_num", "friend_user_num", "register_days"]
-
-    useless_features = ["play_time_ms", "duration_ms", "profile_stay_time", "comment_stay_time"]
+    dense_features = []
+    useless_features = ["Category"]
     scenario_features = ["domain_indicator"]
-    id_features = ["user_id", "video_id"]
-
-    sparse_features = [col for col in col_names if col not in dense_features and
-                       col not in useless_features and col not in id_features and
-                       col not in ['is_click']]
-    # target = "is_click"
+    sparse_features = ["SubCategory"]
+    id_features = ["User_ID", "News_ID"]
 
     for feature in dense_features:
         data[feature] = data[feature].apply(lambda x: convert_numeric(x))
     if dense_features:
         sca = MinMaxScaler()  # scaler dense feature
         data[dense_features] = sca.fit_transform(data[dense_features])
-
     for feature in useless_features:
         del data[feature]
+    for feature in id_features:  # encode sparse feature
+        lbe = LabelEncoder()
+        data[feature] = lbe.fit_transform(data[feature])
     for feature in tqdm(sparse_features):  # encode sparse feature
-        lbe = LabelEncoder()
-        data[feature] = lbe.fit_transform(data[feature])
-    for feature in scenario_features:
-        lbe = LabelEncoder()
-        data[feature] = lbe.fit_transform(data[feature])
-    for feature in id_features:
         lbe = LabelEncoder()
         data[feature] = lbe.fit_transform(data[feature])
 
@@ -99,11 +71,10 @@ def get_kuairand_data_multidomain_ppnet(data_path="./data/kuairand/"):
     sparse_feas = [SparseFeature(feature_name, vocab_size=data[feature_name].nunique(), embed_dim=16) for feature_name
                    in sparse_features]
     scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_features]
-    id_feas = [SparseFeature(feature_name, vocab_size=data[feature_name].nunique(), embed_dim=16) for feature_name
-                   in id_features]
-    y=data["is_click"]
-    del data["is_click"]
+    id_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in id_features]
 
+    y=data["label"]
+    del data["label"]
     return dense_feas, sparse_feas, scenario_feas, id_feas, data, y, domain_num
 
 def convert_numeric(val):
@@ -112,14 +83,13 @@ def convert_numeric(val):
     """
     return int(val)
 
-
 def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_decay, device, save_dir, seed):
     torch.manual_seed(seed)
-    dataset_name = "Kuairand"
-    if model_name =="ppnet":
-        dense_feas, sparse_feas, scenario_feas, id_feas, x, y, domain_num = get_kuairand_data_multidomain_ppnet(dataset_path)
+    dataset_name = "Mind"
+    if model_name == "ppnet":
+        dense_feas, sparse_feas, scenario_feas, id_feas, x, y, domain_num = get_mind_data_multidomain_ppnet(dataset_path)
     else:
-        dense_feas, sparse_feas, scenario_feas, x, y, domain_num = get_kuairand_data_multidomain(dataset_path)
+        dense_feas, sparse_feas, scenario_feas, x, y, domain_num = get_mind_data_multidomain(dataset_path)
     dg = DataGenerator(x, y)
     train_dataloader, val_dataloader, test_dataloader = dg.generate_dataloader(split_ratio=[0.8, 0.1],
                                                                                batch_size=batch_size)
@@ -150,27 +120,27 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
     print(f'test auc: {auc} | test logloss: {logloss}')
     for d in range(domain_num):
         print(f'test domain {d} auc: {domain_auc[d]} | test domain {d} logloss: {domain_logloss[d]}')
+
+
     import csv
     with open(model_name+"_"+dataset_name+"_"+str(seed)+'.csv', "w", newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['model', 'seed', 'auc', 'log', 'auc0', 'log0',
-                         'auc1', 'log1', 'auc2', 'log2', 'auc3', 'log3',
-                         'auc4', 'log4'])
+                         'auc1', 'log1', 'auc2', 'log2', 'auc3', 'log3'])
         writer.writerow([model_name, str(seed), auc, logloss,
                          domain_auc[0], domain_logloss[0],
                          domain_auc[1], domain_logloss[1],
                          domain_auc[2], domain_logloss[2],
-                         domain_auc[3], domain_logloss[3],
-                         domain_auc[4], domain_logloss[4]
+                         domain_auc[3], domain_logloss[3]
                          ])
 
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_path', default="./data/kuairand")
-    parser.add_argument('--model_name', default='m2m')
-    parser.add_argument('--epoch', type=int, default=20)  #100
+    parser.add_argument('--dataset_path', default="./data/mind")
+    parser.add_argument('--model_name', default='epnet')
+    parser.add_argument('--epoch', type=int, default=1)  #100
     parser.add_argument('--learning_rate', type=float, default=1e-3)
     parser.add_argument('--batch_size', type=int, default=100)  #4096
     parser.add_argument('--weight_decay', type=float, default=1e-5)
@@ -181,5 +151,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     main(args.dataset_path, args.model_name, args.epoch, args.learning_rate, args.batch_size, args.weight_decay, args.device, args.save_dir, args.seed)
 """
-python run_kuairand_ctr_multi_domain.py --model_name star
+python run_mind_ctr_multi_domain.py --model_name star
+
 """

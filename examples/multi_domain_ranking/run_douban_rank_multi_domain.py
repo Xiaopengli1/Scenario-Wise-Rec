@@ -10,24 +10,16 @@ from scenario_wise_rec.utils.data import DataGenerator
 from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet
 
 
-def get_movielens_data_rank_multidomain(data_path="data/ml-1m"):
-    data = pd.read_csv(data_path+"/ml-1m.csv")
-    data["cate_id"] = data["genres"].apply(lambda x: x.split("|")[0])
-    del data["genres"]
+def get_doubandata_rank_multidomain(data_path="data/douban"):
+    data = pd.read_csv(data_path+"/douban_sample.csv")
 
-    group1 = {1, 18}
-    group2 = {25}
-    group3 = {35, 45, 50, 56}
-
+    mapping = {"book":0, "music":1, "movie":2}
     domain_num = 3
-
-    data["domain_indicator"] = data["age"].apply(lambda x: map_group_indicator(x, [group1, group2, group3]))
-
-    useless_features = ['title', 'timestamp']
-
-    dense_features = ['age']
-    scenario_features = ['domain_indicator']
-    sparse_features = ['user_id', 'movie_id', 'gender', 'occupation', 'zip', "cate_id", "domain_indicator"]
+    data["domain_indicator"] = data["domain"].apply(lambda x: mapping[x])
+    useless_features = ["join_time", "domain"]
+    dense_features = []
+    scenario_features = ["domain_indicator"]
+    sparse_features = ["user_id", "item_id", "living_place", "time_bin"]
     target = "rating"
 
     for feature in dense_features:
@@ -38,11 +30,6 @@ def get_movielens_data_rank_multidomain(data_path="data/ml-1m"):
 
     for feature in useless_features:
         del data[feature]
-    for feature in sparse_features:
-        lbe = LabelEncoder()
-        data[feature] = lbe.fit_transform(data[feature]) + 1
-
-    data[target] = data[target].apply(lambda x: convert_target(x))
 
     for feat in tqdm(sparse_features):  # encode sparse feature
         lbe = LabelEncoder()
@@ -57,24 +44,21 @@ def get_movielens_data_rank_multidomain(data_path="data/ml-1m"):
 
     return dense_feas, sparse_feas, scenario_feas, data, y, domain_num
 
-def get_movielens_data_rank_multidomain(data_path="data/ml-1m"):
-    data = pd.read_csv(data_path+"/ml-1m.csv")
-    data["cate_id"] = data["genres"].apply(lambda x: x.split("|")[0])
-    del data["genres"]
+def get_doubandata_rank_multidomain_ppnet(data_path="data/douban"):
+    data = pd.read_csv(data_path+"/douban_sample.csv")
 
-    group1 = {1, 18}
-    group2 = {25}
-    group3 = {35, 45, 50, 56}
+
+    mapping = {"book":0, "music":1, "movie":2}
 
     domain_num = 3
 
-    data["domain_indicator"] = data["age"].apply(lambda x: map_group_indicator(x, [group1, group2, group3]))
+    data["domain_indicator"] = data["domain"].apply(lambda x: mapping[x])
 
-    useless_features = ['title', 'timestamp']
-
-    dense_features = ['age']
-    scenario_features = ['domain_indicator']
-    sparse_features = ['user_id', 'movie_id', 'gender', 'occupation', 'zip', "cate_id"]
+    useless_features = ["join_time", "domain"]
+    dense_features = []
+    scenario_features = ["domain_indicator"]
+    sparse_features = ["living_place", "time_bin"]
+    id_features = ["user_id", "item_id"]
     target = "rating"
 
     for feature in dense_features:
@@ -82,85 +66,26 @@ def get_movielens_data_rank_multidomain(data_path="data/ml-1m"):
     if dense_features:
         sca = MinMaxScaler()  # scaler dense feature
         data[dense_features] = sca.fit_transform(data[dense_features])
+
     for feature in useless_features:
         del data[feature]
+    for feat in id_features:  # encode sparse feature
+        lbe = LabelEncoder()
+        data[feat] = lbe.fit_transform(data[feat])
     for feat in tqdm(sparse_features):  # encode sparse feature
         lbe = LabelEncoder()
         data[feat] = lbe.fit_transform(data[feat])
-    data[target] = data[target].apply(lambda x: convert_target(x))
 
     dense_feas = [DenseFeature(feature_name) for feature_name in dense_features]
     sparse_feas = [SparseFeature(feature_name, vocab_size=data[feature_name].nunique(), embed_dim=16) for feature_name
                    in sparse_features]
     scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_features]
+    id_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in id_features]
+
     y = data[target]
     del data[target]
 
-    return dense_feas, sparse_feas, scenario_feas, data, y, domain_num
-
-
-def get_movielens_data_rank_multidomain_ppnet(data_path="data/ml-1m"):
-    data = pd.read_csv(data_path + "/ml-1m.csv")
-    data["cate_id"] = data["genres"].apply(lambda x: x.split("|")[0])
-    del data["genres"]
-
-    group1 = {1, 18}
-    group2 = {25}
-    group3 = {35, 45, 50, 56}
-
-    domain_num = 3
-
-    data["domain_indicator"] = data["age"].apply(lambda x: map_group_indicator(x, [group1, group2, group3]))
-
-    useless_features = ['title', 'timestamp']
-
-    dense_features = ['age']
-    scenario_features = ['domain_indicator']
-    sparse_features = ['gender', 'occupation', 'zip', "cate_id"]
-    id_features = ['user_id', 'movie_id']
-    target = "rating"
-
-    for feature in dense_features:
-        data[feature] = data[feature].apply(lambda x: convert_numeric(x))
-    if dense_features:
-        sca = MinMaxScaler()  # scaler dense feature
-        data[dense_features] = sca.fit_transform(data[dense_features])
-    for feature in useless_features:
-        del data[feature]
-    for feat in tqdm(sparse_features):  # encode sparse feature
-        lbe = LabelEncoder()
-        data[feat] = lbe.fit_transform(data[feat])
-    for feat in tqdm(id_features):  # encode sparse feature
-        lbe = LabelEncoder()
-        data[feat] = lbe.fit_transform(data[feat])
-
-    data[target] = data[target].apply(lambda x: convert_target(x))
-
-    dense_feas = [DenseFeature(feature_name) for feature_name in dense_features]
-    sparse_feas = [SparseFeature(feature_name, vocab_size=data[feature_name].nunique(), embed_dim=16) for feature_name
-                   in sparse_features]
-    id_feas = [SparseFeature(feature_name, vocab_size=data[feature_name].nunique(), embed_dim=16) for feature_name
-                   in id_features]
-    scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_features]
-    y = data[target]
-    del data[target]
-
-    return dense_feas, sparse_feas, id_feas, scenario_feas, data, y, domain_num
-
-def map_group_indicator(age, list_group):
-    l = len(list(list_group))
-    for i in range(l):
-        if age in list_group[i]:
-            return i
-
-
-def convert_target(val):
-    v = int(val)
-    if v > 3:
-        return int(1)
-    else:
-        return int(0)
-
+    return dense_feas, sparse_feas, scenario_feas, id_feas, data, y, domain_num
 
 def convert_numeric(val):
     """
@@ -169,32 +94,13 @@ def convert_numeric(val):
     return int(val)
 
 
-def df_to_dict_multi_domain(data, columns):
-    """
-    Convert the array to a dict type input that the network can accept
-    Args:
-        data (array): 3D datasets of type DataFrame (Length * Domain_num * feature_num)
-        columns (list): feature name list
-    Returns:
-        The converted dict, which can be used directly into the input network
-    """
-
-    data_dict = {}
-    for i in range(len(columns)):
-        data_dict[columns[i]] = data[:, :, i]
-    return data_dict
-
-
-
-
-
 def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_decay, device, save_dir, seed):
     torch.manual_seed(seed)
-    dataset_name = "Movielens"
+    dataset_name = "Douban"
     if model_name == "ppnet":
-        dense_feas, sparse_feas, id_feas, scenario_feas, x, y, domain_num = get_movielens_data_rank_multidomain_ppnet(dataset_path)
+        dense_feas, sparse_feas, scenario_feas, id_feas, x, y ,domain_num= get_doubandata_rank_multidomain_ppnet(dataset_path)
     else:
-        dense_feas, sparse_feas, scenario_feas, x, y ,domain_num= get_movielens_data_rank_multidomain(dataset_path)
+        dense_feas, sparse_feas, scenario_feas, x, y, domain_num= get_doubandata_rank_multidomain(dataset_path)
     dg = DataGenerator(x, y)
     train_dataloader, val_dataloader, test_dataloader = dg.generate_dataloader(split_ratio=[0.8, 0.1], batch_size=batch_size)
     if model_name == "star":
@@ -224,7 +130,6 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
     print(f'test auc: {auc} | test logloss: {logloss}')
     for d in range(domain_num):
         print(f'test domain {d} auc: {domain_auc[d]} | test domain {d} logloss: {domain_logloss[d]}')
-
     import csv
     with open(model_name+"_"+dataset_name+"_"+str(seed)+'.csv', "w", newline='') as f:
         writer = csv.writer(f)
@@ -235,12 +140,13 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
                          domain_auc[1], domain_logloss[1],
                          domain_auc[2], domain_logloss[2]])
 
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_path', default="./data/ml-1m")
-    parser.add_argument('--model_name', default='adaptdhm')
-    parser.add_argument('--epoch', type=int, default=20)
+    parser.add_argument('--dataset_path', default="./data/douban")
+    parser.add_argument('--model_name', default='epnet')
+    parser.add_argument('--epoch', type=int, default=1)  #100
     parser.add_argument('--learning_rate', type=float, default=1e-3)
     parser.add_argument('--batch_size', type=int, default=4096)  #4096
     parser.add_argument('--weight_decay', type=float, default=1e-5)
@@ -249,8 +155,7 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, default=2022)
 
     args = parser.parse_args()
-    main(args.dataset_path, args.model_name, args.epoch, args.learning_rate, args.batch_size, args.weight_decay,
-         args.device, args.save_dir, args.seed)
+    main(args.dataset_path, args.model_name, args.epoch, args.learning_rate, args.batch_size, args.weight_decay, args.device, args.save_dir, args.seed)
 """
-python run_movielens_rank_multi_domain.py --model_name star
+python run_douban_rank_multi_domain.py --model_name star
 """

@@ -2,10 +2,12 @@ import sys
 sys.path.append("../..")
 import torch
 import pandas as pd
-from scenario_wise_rec.trainers import CTRTrainer
+from tqdm import tqdm
 from scenario_wise_rec.basic.features import DenseFeature, SparseFeature
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
+from scenario_wise_rec.trainers import CTRTrainer
 from scenario_wise_rec.utils.data import DataGenerator, reduce_mem_usage
-from scenario_wise_rec.models.multi_domain import Star, SharedBottom, MMOE, PLE, AdaSparse, Sarnet, M2M, AdaptDHM
+from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet
 
 
 def get_ali_ccp_data_dict(data_path='./data/ali-ccp'):
@@ -49,12 +51,12 @@ def get_ali_ccp_data_dict_adasparse(data_path='./data/ali-ccp'):
 
     col_names = data.columns.values.tolist()
     dense_cols = ['D109_14', 'D110_14', 'D127_14', 'D150_14', 'D508', 'D509', 'D702', 'D853']
+    scenario_cols = ['domain_indicator']
 
     domain_map = {1: 0, 2: 1, 3: 2}
     data["domain_indicator"] = data["301"].apply(lambda fea: domain_map[fea])
-    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['click', 'purchase','domain_indicator']]
-    scenario_cols = ['domain_indicator']
     del data['301']
+    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['click', 'purchase','domain_indicator', '301']]
 
     print("scenario_cols:%d sparse cols:%d dense cols:%d" % (len(scenario_cols), len(sparse_cols), len(dense_cols)))
 
@@ -73,13 +75,57 @@ def get_ali_ccp_data_dict_adasparse(data_path='./data/ali-ccp'):
     return (dense_feas, sparse_feas, scenario_feas, scenario_fea_num,
             x_train, y_train, x_val, y_val, x_test, y_test, domain_num)
 
+def get_ali_ccp_data_dict_ppnet(data_path='./data/ali-ccp'):
+    df_train = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_train_sample.csv'))
+    df_val = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_val_sample.csv'))
+    df_test = reduce_mem_usage(pd.read_csv(data_path + '/ali_ccp_test_sample.csv'))
+    print("train : val : test = %d %d %d" % (len(df_train), len(df_val), len(df_test)))
+
+    train_idx, val_idx = df_train.shape[0], df_train.shape[0] + df_val.shape[0]
+    data = pd.concat([df_train, df_val, df_test], axis=0)
+    domain_num = 3
+    scenario_fea_num = 1
+    # scenario_fea = data.pop('301')
+    # data.insert(loc=0, column='301', value=scenario_fea)
+
+    col_names = data.columns.values.tolist()
+    dense_cols = ['D109_14', 'D110_14', 'D127_14', 'D150_14', 'D508', 'D509', 'D702', 'D853']
+    id_cols = ['101', '205']
+    scenario_cols = ['domain_indicator']
+    sparse_cols = [col for col in col_names if col not in dense_cols and col not in id_cols and col not in ['click', 'purchase','domain_indicator','301']]
+
+    domain_map = {1: 0, 2: 1, 3: 2}
+    data["domain_indicator"] = data["301"].apply(lambda fea: domain_map[fea])
+    del data['301']
+
+    print("scenario_cols:%d sparse cols:%d dense cols:%d" % (len(scenario_cols), len(sparse_cols), len(dense_cols)))
+
+    dense_feas = [DenseFeature(col) for col in dense_cols]
+    sparse_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in sparse_cols]
+    scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_cols]
+    id_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in id_cols]
+
+    y = data["click"]
+    del data["click"]
+    x = data
+    # scenario_ids = x[scenario_cols].unique()
+    x_train, y_train = x[:train_idx], y[:train_idx]
+    x_val, y_val = x[train_idx:val_idx], y[train_idx:val_idx]
+    x_test, y_test = x[val_idx:], y[val_idx:]
+
+    return (dense_feas, sparse_feas, scenario_feas, id_feas, scenario_fea_num,
+            x_train, y_train, x_val, y_val, x_test, y_test, domain_num)
+
 
 def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_decay, device, save_dir, seed):
     torch.manual_seed(seed)
     dataset_name = "Aliccp"
-    if model_name in ["adasparse", "m2m", "adaptdhm"]:
+    if model_name in ["adasparse", "m2m", "adaptdhm", "epnet"]:
         (dense_feas, sparse_feas, scenario_feas, scenario_fea_num, x_train, y_train, x_val, y_val,
          x_test, y_test, domain_num) = get_ali_ccp_data_dict_adasparse(dataset_path)
+    elif model_name == "ppnet":
+        (dense_feas, sparse_feas, scenario_feas, id_feas, scenario_fea_num, x_train, y_train, x_val,
+         y_val, x_test, y_test, domain_num) = get_ali_ccp_data_dict_ppnet(dataset_path)
     else:
         dense_feas, sparse_feas, x_train, y_train, x_val, y_val, x_test, y_test, domain_num = get_ali_ccp_data_dict(
             dataset_path)
@@ -111,7 +157,10 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
         model = AdaptDHM(features=sparse_feas + scenario_feas, fcn_dims=[256, 128, 64, 32, 16, 8], cluster_num=3,
                          beta=0.9,
                          device=device)
-
+    elif model_name == "epnet":
+        model = EPNet(sce_features=scenario_feas, agn_features=sparse_feas+dense_feas, fcn_dims=[256, 128, 64, 32, 16, 8])
+    elif model_name == "ppnet":
+        model = PPNet(id_features= id_feas, agn_features=sparse_feas+dense_feas+scenario_feas,domain_num= domain_num,fcn_dims=[256, 128, 64, 32, 16, 8])
     ctr_trainer = CTRTrainer(model, dataset_name, optimizer_params={"lr": learning_rate, "weight_decay": weight_decay},
                              n_epoch=epoch, earlystop_patience=5, device=device, model_path=save_dir,
                              scheduler_params={"step_size": 4, "gamma": 0.95})
