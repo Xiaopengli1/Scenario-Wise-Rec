@@ -8,7 +8,8 @@
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FXiaopengli1%2FScenario-Wise-Rec&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
 
 ## Introduction
-English | [简体中文](README_CN.md)
+
+[//]: # (English | [简体中文]&#40;README_CN.md&#41;)
 
 **Scenario-Wise-Rec**, an open-sourced benchmark for Multi-Scenario/Multi-Domain Recommendation. We provide 10 models across 6 different datasets.
 ![structures](figures/structure.png)
