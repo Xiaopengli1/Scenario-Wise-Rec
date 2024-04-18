@@ -10,7 +10,9 @@
 ## Introduction
 English | [简体中文](README_CN.md)
 
-**Scenario-Wise-Rec**, an open-sourced benchmark for Multi-Scenario/Multi-Domain Recommendation. We provide eight models across four different datasets.
+**Scenario-Wise-Rec**, an open-sourced benchmark for Multi-Scenario/Multi-Domain Recommendation. We provide 10 models across 6 different datasets.
+![structures](figures/structure.png)
+
 Dataset information is listed as follows:
 
 | Dataset   | Domain number | Interaction | User    | Item      |
