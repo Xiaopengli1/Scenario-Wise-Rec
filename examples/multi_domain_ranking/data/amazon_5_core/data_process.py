@@ -49,4 +49,4 @@ data.reset_index(drop=True,inplace=True)
 
 # label mapping
 data.label = data.label.apply(lambda x: 1 if x>3 else 0)
-data.to_csv('amazon_5_core.csv', index=False)
+data.to_csv('amazon.csv', index=False)
