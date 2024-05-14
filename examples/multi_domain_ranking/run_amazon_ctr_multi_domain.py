@@ -46,7 +46,7 @@ def get_amazon_data_dict_adasparse(data_path='./data/amazon_5_core'):
     col_names = data.columns.values.tolist()
     dense_cols = []
     scenario_cols = ['domain_indicator']
-    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['is_click', 'domain_indicator']]
+    sparse_cols = [col for col in col_names if col not in dense_cols and col not in ['label', 'domain_indicator']]
 
     for feature in dense_cols:
         data[feature] = data[feature].apply(lambda x: convert_numeric(x))
@@ -79,7 +79,7 @@ def get_amazon_data_dict_ppnet(data_path='./data/amazon_5_core'):
     dense_cols = []
     id_cols = ['user_id', 'item_id']
     scenario_cols = ['domain_indicator']
-    sparse_cols = [col for col in col_names if col not in dense_cols and col not in id_cols and col not in ['is_click', 'domain_indicator']]
+    sparse_cols = [col for col in col_names if col not in dense_cols and col not in id_cols and col not in ['label', 'domain_indicator']]
 
     for feature in dense_cols:
         data[feature] = data[feature].apply(lambda x: convert_numeric(x))
