@@ -64,8 +64,8 @@ def get_amazon_data_dict_adasparse(data_path='./data/amazon_5_core'):
     sparse_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in sparse_cols]
     scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_cols]
 
-    y = data["is_click"]
-    del data["is_click"]
+    y = data["label"]
+    del data["label"]
     x = data
 
     return (dense_feas, sparse_feas, scenario_feas, scenario_fea_num,
@@ -98,8 +98,8 @@ def get_amazon_data_dict_ppnet(data_path='./data/amazon_5_core'):
     scenario_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in scenario_cols]
     id_feas = [SparseFeature(col, vocab_size=data[col].max() + 1, embed_dim=16) for col in id_cols]
 
-    y = data["is_click"]
-    del data["is_click"]
+    y = data["label"]
+    del data["label"]
     x = data
     return (dense_feas, sparse_feas, scenario_feas, id_feas, scenario_fea_num,
             x, y, domain_num)
