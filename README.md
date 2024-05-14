@@ -55,14 +55,21 @@ Models information is listed as follows:
 [//]: # (Check our paper: [Scenario-Wise Rec: A Multi-Scenario Recommendation Benchmark]&#40;&#41;.)
 
 ## Installation
+**WARNING**: Our package is still being modified and developed, so if there are usage problems, feel free to post issues.
 
-### Install via `pip`
-We provide a Python package *scenario_wise_rec* for users. Simply run:
-```sh
-pip install -i https://test.pypi.org/simple/ scenario-wise-rec
-```
 
-Note that the pip installation could be behind the recent updates. So, if you want to use the latest features or develop based on our code, you should install via source code.
+[//]: # (### Install via `pip`)
+
+[//]: # (We provide a Python package *scenario_wise_rec* for users. Simply run:)
+
+[//]: # (```sh)
+
+[//]: # (pip install -i https://test.pypi.org/simple/ scenario-wise-rec)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (Note that the pip installation could be behind the recent updates. So, if you want to use the latest features or develop based on our code, you should install via source code.)
 
 ### Install via GitHub (Recommended)
 
