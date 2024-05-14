@@ -2,9 +2,7 @@ import sys
 sys.path.append("../..")
 import torch
 import pandas as pd
-from tqdm import tqdm
 from scenario_wise_rec.basic.features import DenseFeature, SparseFeature
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from scenario_wise_rec.trainers import CTRTrainer
 from scenario_wise_rec.utils.data import DataGenerator, reduce_mem_usage
 from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet
