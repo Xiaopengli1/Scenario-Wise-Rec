@@ -77,7 +77,7 @@ def get_amazon_data_dict_ppnet(data_path='./data/amazon_5_core'):
     scenario_fea_num = 1
     col_names = data.columns.values.tolist()
     dense_cols = []
-    id_cols = ['user_id', 'item_id']
+    id_cols = ['user', 'item']
     scenario_cols = ['domain_indicator']
     sparse_cols = [col for col in col_names if col not in dense_cols and col not in id_cols and col not in ['label', 'domain_indicator']]
 
@@ -88,6 +88,9 @@ def get_amazon_data_dict_ppnet(data_path='./data/amazon_5_core'):
         data[dense_cols] = sca.fit_transform(data[dense_cols])
 
     for feat in tqdm(sparse_cols):  # encode sparse feature
+        lbe = LabelEncoder()
+        data[feat] = lbe.fit_transform(data[feat])
+    for feat in tqdm(id_cols):  # encode id feature
         lbe = LabelEncoder()
         data[feat] = lbe.fit_transform(data[feat])
 
