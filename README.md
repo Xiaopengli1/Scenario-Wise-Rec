@@ -30,11 +30,16 @@ Dataset information is listed as follows:
 | Ali-CCP   | Domain 0      | 32,236,951  | 89,283  | 465,870   |
 |           | Domain 1      | 639,897     | 2,561   | 188,610   |
 |           | Domain 2      | 52,439,671  | 150,471 | 467,122   |
-| Tenrec    | Domain 0      | 64,475,979  | 997,263 | 1,365,660 |
-|           | Domain 1      | 54,277,815  | 989,911 | 791,826   |
-|           | Domain 2      | 1,588,512   | 455,636 | 152,601   |
-| Douban    | To be added   | -           |-        | -         |
-| Mind      | To be added   | -           |-        | -         |
+| Amazon    | Domain 0      | 198,502     | 22,363  | 12,101    |
+|           | Domain 1      | 278,677     | 39,387  | 23,033    |
+|           | Domain 2      | 346,355     | 38,609  | 18,534    |
+| Douban    | Domain 0      | 227,251     | 2,212   | 95,872    |
+|           | Domain 1      | 179,847     | 1,820   | 79,878    |
+|           | Domain 2      | 1,278,401   | 2,712   | 34,893    |
+| Mind      | Domain 0      | 26,057,579  | 737,687 | 8,086     |
+|           | Domain 1      | 11,206,494  | 678,268 | 1,797     |
+|           | Domain 2      | 10,237,589  | 696,918 | 8,284     |
+|           | Domain 3      | 9,226,382   | 656,970 | 1,804     |
 
 Models information is listed as follows:
 
@@ -101,14 +106,14 @@ For Full-Dataset Download and test, refer to the following steps.
 
 Four Multi-Scenario/Multi-Domain Datasets are provided. See the following Table.
 
-| Dataset                                                                         | Domain  Number | Users           | Items | Items |    Download     |
-|:--------------------------------------------------------------------------------|:---------------|:----------------|:-----:|:-----:|:---------------:|
-| [Movie-Lens](https://grouplens.org/datasets/movielens/)                         | 3              | 6k              |  4k   |  1M   | [ML_Download](https://drive.google.com/file/d/1c8yqnw0U5oTfz_Yowtd9D37UUIIAeIiM/view?usp=sharing) | 
-| [KuaiRand](https://kuairand.com/)                                               | 5              | 1k              |  4M   |  11M  | [KR_Download](https://drive.google.com/file/d/1-39JNTQ-NCW1O0bFA6YtP_Rg1yl0QiSQ/view?usp=sharing) | 
-| [Ali-CCP](https://tianchi.aliyun.com/dataset/408)                               | 3              | 238k            | 467k  |  85M  | [AC_Download](https://drive.google.com/drive/folders/1plgdPg_MGlgJbyFr6FAqmWnAgkL-qAxm?usp=sharing) | 
-| [Tenrec](https://static.qblv.qq.com/qblv/h5/algo-frontend/tenrec\_dataset.html) | 3              | 1M              |  2M   | 120M  | [TR_Download](https://drive.google.com/file/d/1mZcUlbXoEjBLTT7y9wqJacHzZsmh0V-I/view?usp=sharing) | 
-| [Douban]()                                                                      | 3              | -              |  -     | -     | [DB_Download]() | 
-| [Mind]()                                                                        | 4              | -              |  -     | -     | [MD_Download]() | 
+| Dataset                                                                                          | Domain  Number | Users | Items | Interaction |    Download     |
+|:-------------------------------------------------------------------------------------------------|:---------------|:------|:-----:|:-----------:|:---------------:|
+| [Movie-Lens](https://grouplens.org/datasets/movielens/)                                          | 3              | 6k    |  4k   |     1M      | [ML_Download](https://drive.google.com/file/d/1c8yqnw0U5oTfz_Yowtd9D37UUIIAeIiM/view?usp=sharing) | 
+| [KuaiRand](https://kuairand.com/)                                                                | 5              | 1k    |  4M   |     11M     | [KR_Download](https://drive.google.com/file/d/1-39JNTQ-NCW1O0bFA6YtP_Rg1yl0QiSQ/view?usp=sharing) | 
+| [Ali-CCP](https://tianchi.aliyun.com/dataset/408)                                                | 3              | 238k  | 467k  |     85M     | [AC_Download](https://drive.google.com/drive/folders/1plgdPg_MGlgJbyFr6FAqmWnAgkL-qAxm?usp=sharing) | 
+| [Amazon](https://jmcauley.ucsd.edu/data/amazon/)                                                 | 3              | 85k   |  54k  |    823k     | [TR_Download](https://drive.google.com/file/d/1mZcUlbXoEjBLTT7y9wqJacHzZsmh0V-I/view?usp=sharing) | 
+| [Douban](https://www.kaggle.com/datasets/fengzhujoey/douban-datasetratingreviewside-information) | 3              | 2k    | 210k  |    1.7M     | [DB_Download](https://drive.google.com/file/d/1CJbbiNLlyXXGofWMMkxQ_e3tg_1VByio/view?usp=sharing) | 
+| [Mind](https://msnews.github.io/)                                                                | 4              | 748k  |  20k  |     56M     | [MD_Download](https://drive.google.com/file/d/10_f9q4C9pqnetfKRdygjTCZBS_od5_7z/view?usp=drive_link) | 
 
 
 Substitute the full-dataset with sampled dataset, at the same time, uncomment the code in the accordingly python-script.
