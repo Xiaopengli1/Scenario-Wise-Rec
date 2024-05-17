@@ -98,7 +98,7 @@ pip install .
 ## Usage
 We provide running scripts for users. See `/scripts`, and dataset samples are provided in `/scripts/data`. You could directly test it by simply do:
 ```sh
-python run_ali_ccp_ctr_ranking_multi_domain.py --model star
+python run_ali_ccp_ctr_ranking_multi_domain.py --model [model_name]
 ```
 For Full-Dataset download and test, refer to the following steps.
 
@@ -120,7 +120,7 @@ Substitute the full-dataset with sampled dataset.
 
 ### Step 2: Run the code 
 ```sh
-python run_movielens_rank_multi_domain.py --model_name model_name --device cpu --seed 2022 
+python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [star/PLE/..] --device ["cpu"/"cuda:0"] --epoch [maximum epoch] --learning_rate [1e-3] --batch_size [2028/4096] --seed [random seed] 
 ```
 
 [//]: # (## Citation)
