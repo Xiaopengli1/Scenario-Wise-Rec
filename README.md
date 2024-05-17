@@ -15,35 +15,45 @@
 
 ![structures](figures/structure.png)
 
+<details>
+
+<summary>Dataset introduction</summary>
+
 Dataset information is listed as follows:
 
 | Dataset   | Domain number | Interaction | User    | Item      |
 |-----------|---------------|-------------|---------|-----------|
-| MovieLens | Domain 0      | 210,747     | 1,325   | 3,429     |
+| [MovieLens](https://grouplens.org/datasets/movielens/) | Domain 0      | 210,747     | 1,325   | 3,429     |
 |           | Domain 1      | 395,556     | 2,096   | 3,508     |
 |           | Domain 2      | 393,906     | 2,619   | 3,595     |
-| KuaiRand  | Domain 0      | 2,407,352   | 961     | 1,596,491 |
+| [KuaiRand](https://kuairand.com/) | 5              | 1k    |  4M   |     11M     | [KR_Download](https://drive.google.com/file/d/1-39JNTQ-NCW1O0bFA6YtP_Rg1yl0QiSQ/view?usp=sharing)  | Domain 0      | 2,407,352   | 961     | 1,596,491 |
 |           | Domain 1      | 7,760,237   | 991     | 2,741,383 |
 |           | Domain 2      | 895,385     | 171     | 332,210   |
 |           | Domain 3      | 402,366     | 832     | 547,908   |
 |           | Domain 4      | 183,403     | 832     | 43,106    |
-| Ali-CCP   | Domain 0      | 32,236,951  | 89,283  | 465,870   |
+| [Ali-CCP](https://tianchi.aliyun.com/dataset/408)   | Domain 0      | 32,236,951  | 89,283  | 465,870   |
 |           | Domain 1      | 639,897     | 2,561   | 188,610   |
 |           | Domain 2      | 52,439,671  | 150,471 | 467,122   |
-| Amazon    | Domain 0      | 198,502     | 22,363  | 12,101    |
+| [Amazon](https://jmcauley.ucsd.edu/data/amazon/)    | Domain 0      | 198,502     | 22,363  | 12,101    |
 |           | Domain 1      | 278,677     | 39,387  | 23,033    |
 |           | Domain 2      | 346,355     | 38,609  | 18,534    |
-| Douban    | Domain 0      | 227,251     | 2,212   | 95,872    |
+| [Douban](https://www.kaggle.com/datasets/fengzhujoey/douban-datasetratingreviewside-information)    | Domain 0      | 227,251     | 2,212   | 95,872    |
 |           | Domain 1      | 179,847     | 1,820   | 79,878    |
 |           | Domain 2      | 1,278,401   | 2,712   | 34,893    |
-| Mind      | Domain 0      | 26,057,579  | 737,687 | 8,086     |
+| [Mind](https://msnews.github.io/)      | Domain 0      | 26,057,579  | 737,687 | 8,086     |
 |           | Domain 1      | 11,206,494  | 678,268 | 1,797     |
 |           | Domain 2      | 10,237,589  | 696,918 | 8,284     |
 |           | Domain 3      | 9,226,382   | 656,970 | 1,804     |
 
+</details>
+
+<details>
+
+<summary>Model introduction</summary>
+
 Models information is listed as follows:
 
-| Model         | model-name     | Link                                              |
+| Model         | model_name     | Link                                              |
 |---------------|----------------|---------------------------------------------------|
 | Shared Bottom | SharedBottom   | [Link](https://link.springer.com/article/10.1023/A:1007379606734) |
 | MMOE          | MMOE           | [Link](https://www.kdd.org/kdd2018/accepted-papers/view/modeling-task-relationships-in-multi-task-learning-with-multi-gate-mixture-) |
@@ -56,6 +66,7 @@ Models information is listed as follows:
 | EPNet         | ppnet          | [Link](https://arxiv.org/abs/2302.01115) |
 | PPNet         | epnet          | [Link](https://arxiv.org/abs/2302.01115) |
 
+</details>
 
 [//]: # (Check our paper: [Scenario-Wise Rec: A Multi-Scenario Recommendation Benchmark]&#40;&#41;.)
 
@@ -120,7 +131,7 @@ Substitute the full-dataset with sampled dataset.
 
 ### Step 2: Run the code 
 ```sh
-python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [star/PLE/..] --device ["cpu"/"cuda:0"] --epoch [maximum epoch] --learning_rate [1e-3] --batch_size [2028/4096] --seed [random seed] 
+python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [model_name] --device ["cpu"/"cuda:0"] --epoch [maximum epoch] --learning_rate [1e-3] --batch_size [2028/4096] --seed [random seed] 
 ```
 
 [//]: # (## Citation)
