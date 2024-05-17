@@ -96,15 +96,15 @@ pip install .
 ```
 
 ## Usage
-We provide examples for users. See `/examples/multi_domain_ranking/`, and dataset samples are provided in `/examples/multi_domain_ranking/data`. You could directly test it by simply do:
+We provide running scripts for users. See `/scripts`, and dataset samples are provided in `/scripts/data`. You could directly test it by simply do:
 ```sh
 python run_ali_ccp_ctr_ranking_multi_domain.py --model star
 ```
-For Full-Dataset Download and test, refer to the following steps.
+For Full-Dataset download and test, refer to the following steps.
 
 ### Step 1: Full Datasets Download
 
-Four Multi-Scenario/Multi-Domain Datasets are provided. See the following Table.
+Four Multi-Scenario/Multi-Domain Datasets are provided. See the following table.
 
 | Dataset                                                                                          | Domain  Number | Users | Items | Interaction |    Download     |
 |:-------------------------------------------------------------------------------------------------|:---------------|:------|:-----:|:-----------:|:---------------:|
@@ -116,20 +116,20 @@ Four Multi-Scenario/Multi-Domain Datasets are provided. See the following Table.
 | [Mind](https://msnews.github.io/)                                                                | 4              | 748k  |  20k  |     56M     | [MD_Download](https://drive.google.com/file/d/10_f9q4C9pqnetfKRdygjTCZBS_od5_7z/view?usp=drive_link) | 
 
 
-Substitute the full-dataset with sampled dataset, at the same time, uncomment the code in the accordingly python-script.
+Substitute the full-dataset with sampled dataset.
 
 ### Step 2: Run the code 
 ```sh
-python run_movielens_rank_multi_domain.py --model_name star --device "cuda:0" --seed 2022 
+python run_movielens_rank_multi_domain.py --model_name model_name --device cpu --seed 2022 
 ```
 
 [//]: # (## Citation)
 
 ## Build Your Own Multi-scenario Dataset/Model
-We offer two template files [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/examples/multi_domain_ranking/run_example.py) and [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py) for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
+We offer two template files [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scripts/run_example.py) and [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py) for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
 
 ### Instructions on processing your dataset
-see [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/examples/multi_domain_ranking/run_example.py).
+see [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scripts/run_example.py).
 During the function `get_example_dataset(input_path)` to process your dataset. Be noted the feature 
 `"domain_indicator"` is the feature to indicate domains. For other implementation details refer the file.
 
