@@ -1,5 +1,5 @@
 import sys
-sys.path.append("../..")
+sys.path.append("..")
 import torch
 import pandas as pd
 from scenario_wise_rec.basic.features import DenseFeature, SparseFeature
