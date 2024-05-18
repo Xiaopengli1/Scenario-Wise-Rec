@@ -16,7 +16,7 @@
 
 [//]: # (English | [简体中文]&#40;README_CN.md&#41;)
 
-**Scenario-Wise Rec**, an open-sourced benchmark for Multi-Scenario/Multi-Domain Recommendation. We provide 10 models across 6 different datasets.
+**Scenario-Wise Rec**, an open-sourced benchmark for Multi-Scenario/Multi-Domain Recommendation.
 
 ![structures](figures/structure.png)
 
