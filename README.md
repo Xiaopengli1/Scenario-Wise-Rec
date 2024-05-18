@@ -1,4 +1,8 @@
-# Scenario-Wise-Rec: Benchmark for Multi-Scenario Recommendation 
+<p align="center">
+<img src='figures/logo.png' height="180">
+
+# 
+
 <p align="left">
   <img src='https://img.shields.io/badge/python-3.8+-brightgreen'>
   <img src='https://img.shields.io/badge/torch-1.13+-brightgreen'>
