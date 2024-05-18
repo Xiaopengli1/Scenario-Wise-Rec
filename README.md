@@ -1,5 +1,6 @@
 <p align="center">
 <img src='figures/logo.png' height="180">
+</p>
 
 # 
 
