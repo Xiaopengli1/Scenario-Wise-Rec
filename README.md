@@ -24,6 +24,7 @@
 
 <summary>Dataset introduction</summary>
 
+
 | Dataset   | Domain number | Interaction | User    | Item      |
 |-----------|---------------|-------------|---------|-----------|
 | [MovieLens](https://grouplens.org/datasets/movielens/) | Domain 0      | 210,747     | 1,325   | 3,429     |
@@ -53,6 +54,7 @@
 <details>
 
 <summary>Model introduction</summary>
+
 
 | Model         | model_name     | Link                                              |
 |---------------|----------------|---------------------------------------------------|
@@ -132,7 +134,7 @@ Substitute the full-dataset with sampled dataset.
 
 ### Step 2: Run the code 
 ```sh
-python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [model_name] --device ["cpu"/"cuda:0"] --epoch [maximum epoch] --learning_rate [1e-3] --batch_size [2028/4096] --seed [random seed] 
+python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [model_name] --device ["cpu"/"cuda:0"] --epoch [maximum epoch] --learning_rate [1e-3/1e-5] --batch_size [2048/4096] --seed [random seed] 
 ```
 
 [//]: # (## Citation)
