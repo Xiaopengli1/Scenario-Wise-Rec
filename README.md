@@ -24,8 +24,6 @@
 
 <summary>Dataset introduction</summary>
 
-Dataset information is listed as follows:
-
 | Dataset   | Domain number | Interaction | User    | Item      |
 |-----------|---------------|-------------|---------|-----------|
 | [MovieLens](https://grouplens.org/datasets/movielens/) | Domain 0      | 210,747     | 1,325   | 3,429     |
@@ -55,8 +53,6 @@ Dataset information is listed as follows:
 <details>
 
 <summary>Model introduction</summary>
-
-Models information is listed as follows:
 
 | Model         | model_name     | Link                                              |
 |---------------|----------------|---------------------------------------------------|
