@@ -18,7 +18,7 @@
 
 **Scenario-Wise Rec**, an open-sourced benchmark for Multi-Scenario/Multi-Domain Recommendation.
 
-![structures](figures/structure.png)
+![structures](figures/structure_new.png)
 
 <details>
 
