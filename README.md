@@ -25,12 +25,12 @@
 <summary>Dataset introduction</summary>
 
 
-| Dataset   | Domain number | Interaction | User    | Item      |
+| Dataset   | Domain number | # Interaction | # User    | # Item      |
 |-----------|---------------|-------------|---------|-----------|
 | [MovieLens](https://grouplens.org/datasets/movielens/) | Domain 0      | 210,747     | 1,325   | 3,429     |
 |           | Domain 1      | 395,556     | 2,096   | 3,508     |
 |           | Domain 2      | 393,906     | 2,619   | 3,595     |
-| [KuaiRand](https://kuairand.com/) | 5              | 1k    |  4M   |     11M     | [KR_Download](https://drive.google.com/file/d/1-39JNTQ-NCW1O0bFA6YtP_Rg1yl0QiSQ/view?usp=sharing)  | Domain 0      | 2,407,352   | 961     | 1,596,491 |
+| [KuaiRand](https://kuairand.com/) | Domain 0      | 2,407,352   | 961     | 1,596,491 |
 |           | Domain 1      | 7,760,237   | 991     | 2,741,383 |
 |           | Domain 2      | 895,385     | 171     | 332,210   |
 |           | Domain 3      | 402,366     | 832     | 547,908   |
