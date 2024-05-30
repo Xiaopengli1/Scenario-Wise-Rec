@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/pypi/l/torch-rechub">
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FXiaopengli1%2FScenario-Wise-Rec&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
 
-## Introduction
+## 1. Introduction
 
 [//]: # (English | [简体中文]&#40;README_CN.md&#41;)
 
@@ -73,7 +73,7 @@
 
 [//]: # (Check our paper: [Scenario-Wise Rec: A Multi-Scenario Recommendation Benchmark]&#40;&#41;.)
 
-## Installation
+## 2. Installation
 **WARNING**: Our package is still being modified and developed, so if there are usage problems, feel free to post issues.
 
 
@@ -109,7 +109,7 @@ then use pip to install our packages:
 pip install .
 ```
 
-## Usage
+## 3. Usage
 We provide running scripts for users. See `/scripts`, and dataset samples are provided in `/scripts/data`. You could directly test it by simply do:
 ```sh
 python run_ali_ccp_ctr_ranking_multi_domain.py --model [model_name]
@@ -139,7 +139,7 @@ python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [mo
 
 [//]: # (## Citation)
 
-## Build Your Own Multi-scenario Dataset/Model
+## 4. Build Your Own Multi-scenario Dataset/Model
 We offer two template files [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scripts/run_example.py) and [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py) for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
 
 ### Instructions on processing your dataset
@@ -153,10 +153,10 @@ Where you could build your own model here, where we left two spaces for users to
 and scenario-specific models. We also leave comments on how to format the output dimension. Please refer to 
 the file to see more details.  
 
-## Contributing
+## 5. Contributing
 We welcome any contribution that could help improve the benchmark, please fork the repo and create a pull request. You can also open an issue if you have any questions. 
 Don't forget to give the project a star! Thanks again!
 
 
-## Credits
-Our code is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
+## 6. Credits
+Our framework is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
