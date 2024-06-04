@@ -109,22 +109,6 @@ class CTRTrainer(object):
                 targets.extend(y.tolist())
                 predicts.extend(y_pred.tolist())
         return self.evaluate_fn(targets, predicts),log_loss(targets,predicts)
-    # def evaluate_logloss(self, model, data_loader, mode = "val"):
-    #     model.eval()
-    #     targets, predicts = list(), list()
-    #     if mode=="val":
-    #         desc_str= "logloss-validation"
-    #     else:
-    #         desc_str = "logloss-prediction"
-    #     with torch.no_grad():
-    #         tk0 = tqdm.tqdm(data_loader, desc=desc_str, smoothing=0, mininterval=1.0)
-    #         for i, (x_dict, y) in enumerate(tk0):
-    #             x_dict = {k: v.to(self.device) for k, v in x_dict.items()}
-    #             y = y.to(self.device)
-    #             y_pred = model(x_dict)
-    #             targets.extend(y.tolist())
-    #             predicts.extend(y_pred.tolist())
-    #     return log_loss(targets,predicts)
 
     def evaluate_multi_domain_loss(self, model, data_loader,domain_num):
         model.eval()
