@@ -103,7 +103,7 @@ Then,
 cd Scenario-Wise-Rec
 ```
 
-then use pip to install our packages:
+then use pip to install our package:
 
 ```sh
 pip install .
