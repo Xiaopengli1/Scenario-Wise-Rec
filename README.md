@@ -16,7 +16,7 @@
 
 [//]: # (English | [简体中文]&#40;README_CN.md&#41;)
 
-**Scenario-Wise Rec**, an open-sourced benchmark for Multi-Scenario/Multi-Domain Recommendation.
+**Scenario-Wise Rec**, an open-sourced benchmark for multi-scenario/multi-domain recommendation.
 
 ![structures](figures/structure_new.png)
 
@@ -74,7 +74,7 @@
 [//]: # (Check our paper: [Scenario-Wise Rec: A Multi-Scenario Recommendation Benchmark]&#40;&#41;.)
 
 ## 2. Installation
-**WARNING**: Our package is still being modified and developed, so if there are usage problems, feel free to post issues.
+**WARNING**: Our package is still being developed, feel free to post issues if there are any usage problems.
 
 
 [//]: # (### Install via `pip`)
@@ -103,22 +103,22 @@ Then,
 cd Scenario-Wise-Rec
 ```
 
-then use pip to install our package:
+Then use pip to install our package:
 
 ```sh
 pip install .
 ```
 
 ## 3. Usage
-We provide running scripts for users. See `/scripts`, and dataset samples are provided in `/scripts/data`. You could directly test it by simply do:
+We provide running scripts for users. See `/scripts`, dataset samples are provided in `/scripts/data`. You could directly test it by simply do (such as for Ali-CCP):
 ```sh
 python run_ali_ccp_ctr_ranking_multi_domain.py --model [model_name]
 ```
-For Full-Dataset download and test, refer to the following steps.
+For full-dataset download, refer to the following steps.
 
 ### Step 1: Full Datasets Download
 
-Four Multi-Scenario/Multi-Domain Datasets are provided. See the following table.
+Four multi-scenario/multi-domain datasets are provided. See the following table.
 
 | Dataset                                                                                          | Domain  Number | Users | Items | Interaction |    Download     |
 |:-------------------------------------------------------------------------------------------------|:---------------|:------|:-----:|:-----------:|:---------------:|
@@ -130,7 +130,7 @@ Four Multi-Scenario/Multi-Domain Datasets are provided. See the following table.
 | [Mind](https://msnews.github.io/)                                                                | 4              | 748k  |  20k  |     56M     | [MD_Download](https://drive.google.com/file/d/10_f9q4C9pqnetfKRdygjTCZBS_od5_7z/view?usp=drive_link) | 
 
 
-Substitute the full-dataset with sampled dataset.
+Substitute the full-dataset with the sampled dataset.
 
 ### Step 2: Run the code 
 ```sh
@@ -142,21 +142,20 @@ python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [mo
 ## 4. Build Your Own Multi-scenario Dataset/Model
 We offer two template files [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scripts/run_example.py) and [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py) for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
 
-### Instructions on processing your dataset
+### Instructions on Processing Your Dataset
 See [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scripts/run_example.py).
-During the function `get_example_dataset(input_path)` to process your dataset. Be noted the feature 
-`"domain_indicator"` is the feature to indicate domains. For other implementation details refer the file.
+The function `get_example_dataset(input_path)` is an example to process your dataset. Be noted the feature 
+`"domain_indicator"` is the feature that indicates domains. For other implementation details, refer to the raws file.
 
-### Instructions on building your model
+### Instructions on Building Your Model
 See [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py).
-Where you could build your own model here, where we left two spaces for users to implement scenario-shared 
-and scenario-specific models. We also leave comments on how to format the output dimension. Please refer to 
-the file to see more details.  
+Where you could build your own multi-scenario model here. We left two spaces for users to implement **scenario-shared** 
+and **scenario-specific** models. We also leave comments on how to process the final output. Please refer to 
+the raws file to see more details.  
 
 ## 5. Contributing
-We welcome any contribution that could help improve the benchmark, please fork the repo and create a pull request. You can also open an issue if you have any questions. 
-Don't forget to give the project a star! Thanks again!
+We welcome any contribution that could help improve the benchmark, and don't forget to star 🌟 our project!
 
 
 ## 6. Credits
-Our framework is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
+The framework is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
