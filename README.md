@@ -132,7 +132,7 @@ Four multi-scenario/multi-domain datasets are provided. See the following table.
 
 Substitute the full-dataset with the sampled dataset.
 
-### Step 2: Run the code 
+### Step 2: Run the Code 
 ```sh
 python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [model_name] --device ["cpu"/"cuda:0"] --epoch [maximum epoch] --learning_rate [1e-3/1e-5] --batch_size [2048/4096] --seed [random seed] 
 ```
