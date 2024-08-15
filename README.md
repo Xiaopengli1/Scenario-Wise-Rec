@@ -2,14 +2,25 @@
 <img src='figures/logo.png' height="180">
 </p>
 
-# 
-
-<p align="left">
+<p align="center">
+    <a href="https://www.python.org/">
+            <img alt="Build" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?color=purple">
+    </a>
+    <a href="https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/LICENSE">
+        <img alt="License" src="https://img.shields.io/badge/License-MIT-blue?style=flat&logoColor=blue">
+    </a>
+    <a href="https://colab.research.google.com/drive/1dUX194vy2Ax7ZQAmyotsOAevZdz7jcaM?usp=sharing">
+        <img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg">
+    </a>
+    <a href="https://github.com/Xiaopengli1/Scenario-Wise-Rec">
+        <img alt="Downloads" src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103">
+    </a>
+</p>
+<p align="center">
   <img src='https://img.shields.io/badge/python-3.8+-brightgreen'>
   <img src='https://img.shields.io/badge/torch-1.13+-brightgreen'>
   <img src='https://img.shields.io/badge/scikit_learn-1.2.1+-brightgreen'>
   <img src='https://img.shields.io/badge/pandas-1.5.3+-brightgreen'>
-  <img src="https://img.shields.io/pypi/l/torch-rechub">
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FXiaopengli1%2FScenario-Wise-Rec&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
 
 ## 1. Introduction
