@@ -164,9 +164,16 @@ Where you could build your own multi-scenario model here. We left two spaces for
 and **scenario-specific** models. We also leave comments on how to process the final output. Please refer to 
 the raws file to see more details.  
 
-## 5. Contributing
+## 5. Tutorial
+For ease of use, we have added a [colab tutorial](https://colab.research.google.com/drive/1dUX194vy2Ax7ZQAmyotsOAevZdz7jcaM?usp=sharing), including
+1. Package installation
+2. Data download
+3. Model/data loading
+4. Model training
+5. Result evaluation
+
+## 6. Contributing
 We welcome any contribution that could help improve the benchmark, and don't forget to star 🌟 our project!
 
-
-## 6. Credits
+## 8. Credits
 The framework is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
