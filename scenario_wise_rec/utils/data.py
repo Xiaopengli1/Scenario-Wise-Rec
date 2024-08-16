@@ -56,9 +56,9 @@ class DataGenerator(object):
             val_dataset = TorchDataset(x_val, y_val)
             test_dataset = TorchDataset(x_test, y_test)
 
-        train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-        val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
-        test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+        train_dataloader = DataLoader(train_dataset, batch_size = batch_size, shuffle = True, num_workers = num_workers)
+        val_dataloader = DataLoader(val_dataset, batch_size = batch_size, shuffle = False, num_workers = num_workers)
+        test_dataloader = DataLoader(test_dataset, batch_size = batch_size, shuffle = False, num_workers = num_workers)
         return train_dataloader, val_dataloader, test_dataloader
 
 
