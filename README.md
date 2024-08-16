@@ -150,7 +150,18 @@ python run_movielens_rank_multi_domain.py --dataset_path [path] --model_name [mo
 
 [//]: # (## Citation)
 
-## 4. Build Your Own Multi-scenario Dataset/Model
+## 4. Tutorial
+To facilitate a seamless experience, we have developed a comprehensive [Colab tutorial](https://colab.research.google.com/drive/1dUX194vy2Ax7ZQAmyotsOAevZdz7jcaM?usp=sharing) that guides you through every essential step required to utilize this benchmark effectively. This tutorial is designed with user-friendliness in mind and covers the following key aspects:
+
+1. Package Installation
+2. Data Download
+3. Model/Data Loading
+4. Model Training
+5. Result Evaluation
+
+Each section of the tutorial is designed to be self-contained and easy to follow, making it a valuable resource whether you are a beginner or an experienced user.
+
+## 5. Build Your Own Multi-scenario Dataset/Model
 We offer two template files [run_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scripts/run_example.py) and [base_example.py](https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/scenario_wise_rec/models/multi_domain/base_example.py) for a pipeline to help you to process different multi-scenario dataset and your own multi-scenario models. 
 
 ### Instructions on Processing Your Dataset
@@ -164,16 +175,9 @@ Where you could build your own multi-scenario model here. We left two spaces for
 and **scenario-specific** models. We also leave comments on how to process the final output. Please refer to 
 the raws file to see more details.  
 
-## 5. Tutorial
-For ease of use, we have added a [colab tutorial](https://colab.research.google.com/drive/1dUX194vy2Ax7ZQAmyotsOAevZdz7jcaM?usp=sharing), including
-1. Package installation
-2. Data download
-3. Model/data loading
-4. Model training
-5. Result evaluation
 
 ## 6. Contributing
 We welcome any contribution that could help improve the benchmark, and don't forget to star 🌟 our project!
 
-## 8. Credits
+## 7. Credits
 The framework is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
