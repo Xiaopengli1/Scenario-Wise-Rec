@@ -3,9 +3,6 @@
 </p>
 
 <p align="center">
-    <a href="https://www.python.org/">
-            <img alt="Build" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?color=purple">
-    </a>
     <a href="https://github.com/Xiaopengli1/Scenario-Wise-Rec/blob/main/LICENSE">
         <img alt="License" src="https://img.shields.io/badge/License-MIT-blue?style=flat&logoColor=blue">
     </a>
