@@ -64,20 +64,20 @@
 <summary>Model introduction</summary>
 
 
-| Model         | model_name   | Link                                              |
-|---------------|--------------|---------------------------------------------------|
+| Model        | model_name   | Link                                              |
+|--------------|--------------|---------------------------------------------------|
 | Shared Bottom | sharedbottom | [Link](https://link.springer.com/article/10.1023/A:1007379606734) |
-| MMOE          | mmoe         | [Link](https://www.kdd.org/kdd2018/accepted-papers/view/modeling-task-relationships-in-multi-task-learning-with-multi-gate-mixture-) |
-| PLE           | ple          | [Link](https://dl.acm.org/doi/10.1145/3383313.3412236) |
-| SAR-Net       | sarnet       | [Link](https://arxiv.org/abs/2110.06475) |
-| STAR          | star         | [Link](https://dl.acm.org/doi/abs/10.1145/3459637.3481941) | 
-| M2M           | m2m          | [Link](https://dl.acm.org/doi/abs/10.1145/3488560.3498479) |
-| AdaSparse     | adasparse    | [Link](https://arxiv.org/abs/2206.13108) |
-| AdaptDHM      | adaptdhm     | [Link](https://arxiv.org/abs/2211.12105) |
-| EPNet         | ppnet        | [Link](https://arxiv.org/abs/2302.01115) |
-| PPNet         | epnet        | [Link](https://arxiv.org/abs/2302.01115) |
-| HAMUR         | hamur        | [Link](https://arxiv.org/pdf/2309.06217) |
-| M3oE          | m3oe         | [Link](https://arxiv.org/abs/2404.18465) |
+| MMOE         | mmoe         | [Link](https://www.kdd.org/kdd2018/accepted-papers/view/modeling-task-relationships-in-multi-task-learning-with-multi-gate-mixture-) |
+| PLE          | ple          | [Link](https://dl.acm.org/doi/10.1145/3383313.3412236) |
+| SAR-Net      | sarnet       | [Link](https://arxiv.org/abs/2110.06475) |
+| STAR         | star         | [Link](https://dl.acm.org/doi/abs/10.1145/3459637.3481941) | 
+| M2M          | m2m          | [Link](https://dl.acm.org/doi/abs/10.1145/3488560.3498479) |
+| AdaSparse    | adasparse    | [Link](https://arxiv.org/abs/2206.13108) |
+| AdaptDHM     | adaptdhm     | [Link](https://arxiv.org/abs/2211.12105) |
+| EPNet        | ppnet        | [Link](https://arxiv.org/abs/2302.01115) |
+| PPNet        | epnet        | [Link](https://arxiv.org/abs/2302.01115) |
+| HAMUR        | hamur        | [Link](https://arxiv.org/pdf/2309.06217) |
+| M3oE         | m3oe         | [Link](https://arxiv.org/abs/2404.18465) |
 
 </details>
 
