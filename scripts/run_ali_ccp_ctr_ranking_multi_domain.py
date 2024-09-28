@@ -5,7 +5,7 @@ import pandas as pd
 from scenario_wise_rec.basic.features import DenseFeature, SparseFeature
 from scenario_wise_rec.trainers import CTRTrainer
 from scenario_wise_rec.utils.data import DataGenerator, reduce_mem_usage
-from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet
+from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet, M3oE, HamurLarge
 
 
 def get_ali_ccp_data_dict(data_path='./data/ali-ccp'):
@@ -133,13 +133,13 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
                                                                                y_test=y_test, batch_size=batch_size)
     if model_name == "star":
         model = Star(dense_feas + sparse_feas, domain_num, fcn_dims=[256, 128, 64, 32, 16, 8], aux_dims=[16])
-    elif model_name == "SharedBottom":
+    elif model_name == "Sharedbottom":
         model = SharedBottom(dense_feas + sparse_feas, domain_num, bottom_params={"dims": [512]},
                              tower_params={"dims": [256, 128, 64, 32, 16, 8]})
-    elif model_name == "MMOE":
+    elif model_name == "mmoe":
         model = MMOE(dense_feas + sparse_feas, domain_num, n_expert=domain_num,
                      expert_params={"dims": [256, 128, 64, 32, 16, 8]}, tower_params={"dims": [16]})
-    elif model_name == "PLE":
+    elif model_name == "ple":
         model = PLE(dense_feas + sparse_feas, domain_num, n_level=1, n_expert_specific=2, n_expert_shared=1,
                     expert_params={"dims": [256, 128, 64, 32, 16, 8]}, tower_params={"dims": [16]})
     elif model_name == "adasparse":
@@ -159,6 +159,12 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
         model = EPNet(sce_features=scenario_feas, agn_features=sparse_feas+dense_feas, fcn_dims=[256, 128, 64, 32, 16, 8])
     elif model_name == "ppnet":
         model = PPNet(id_features= id_feas, agn_features=sparse_feas+dense_feas+scenario_feas,domain_num= domain_num,fcn_dims=[256, 128, 64, 32, 16, 8])
+    elif model_name == "m3oe":
+        model = M3oE(features=dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[512, 256, 256, 64], expert_num=4,
+                     exp_d=1, exp_t=1, bal_d=1, bal_t=1, device=device)
+    elif model_name == "hamur":
+        model = HamurLarge(dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[256, 128, 64, 64, 32, 16, 8],
+                            hyper_dims=[64],  k=65)
     ctr_trainer = CTRTrainer(model, dataset_name, optimizer_params={"lr": learning_rate, "weight_decay": weight_decay},
                              n_epoch=epoch, earlystop_patience=5, device=device, model_path=save_dir,
                              scheduler_params={"step_size": 4, "gamma": 0.95})
@@ -187,10 +193,10 @@ if __name__ == '__main__':
     warnings.filterwarnings('ignore')
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_path', default="./data/ali-ccp")
-    parser.add_argument('--model_name', default='adaptdhm')
-    parser.add_argument('--epoch', type=int, default=20)  # 100
+    parser.add_argument('--model_name', default='hamur')
+    parser.add_argument('--epoch', type=int, default=1)  # 100
     parser.add_argument('--learning_rate', type=float, default=1e-3)
-    parser.add_argument('--batch_size', type=int, default=100)  # 4096
+    parser.add_argument('--batch_size', type=int, default=4096)  # 4096
     parser.add_argument('--weight_decay', type=float, default=1e-5)
     parser.add_argument('--device', default='cpu')  # cuda:0
     parser.add_argument('--save_dir', default='./')

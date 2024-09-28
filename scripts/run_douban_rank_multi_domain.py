@@ -7,7 +7,7 @@ from scenario_wise_rec.basic.features import DenseFeature, SparseFeature
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from scenario_wise_rec.trainers import CTRTrainer
 from scenario_wise_rec.utils.data import DataGenerator
-from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet
+from scenario_wise_rec.models.multi_domain import Star, MMOE, PLE, SharedBottom, AdaSparse, Sarnet, M2M, AdaptDHM, EPNet, PPNet, M3oE, HamurSmall
 
 
 def get_doubandata_rank_multidomain(data_path="data/douban"):
@@ -121,8 +121,13 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
         model = AdaptDHM(features=sparse_feas+scenario_feas, fcn_dims=[64, 64], cluster_num=3, beta=0.9, device=device)
     elif model_name == "epnet":
         model = EPNet(sce_features=scenario_feas, agn_features=sparse_feas+dense_feas, fcn_dims=[128,64,32])
-    elif model_name == ("ppnet"):
+    elif model_name == "ppnet":
         model = PPNet(id_features= id_feas, agn_features=sparse_feas+dense_feas+scenario_feas,domain_num= domain_num,fcn_dims=[128,64,32])
+    elif model_name == "m3oe":
+        model = M3oE(features=dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[128, 64, 64, 32], expert_num=4,
+                     exp_d=1, exp_t=1, bal_d=1, bal_t=1, device=device)
+    elif model_name == "hamur":
+        model = HamurSmall(dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[256, 128], hyper_dims=[64], k=35)
     ctr_trainer = CTRTrainer(model, dataset_name, optimizer_params={"lr": learning_rate, "weight_decay": weight_decay}, n_epoch=epoch, earlystop_patience=4, device=device, model_path=save_dir,scheduler_params={"step_size": 2,"gamma": 0.85})
     #scheduler_fn=torch.optim.lr_scheduler.StepLR,scheduler_params={"step_size": 2,"gamma": 0.8},
     ctr_trainer.fit(train_dataloader, val_dataloader)
@@ -145,7 +150,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_path', default="./data/douban")
-    parser.add_argument('--model_name', default='epnet')
+    parser.add_argument('--model_name', default='hamur')
     parser.add_argument('--epoch', type=int, default=1)  #100
     parser.add_argument('--learning_rate', type=float, default=1e-3)
     parser.add_argument('--batch_size', type=int, default=4096)  #4096

@@ -4,7 +4,7 @@ from ...basic.layers import MLP, EmbeddingLayer
 
 
 class SharedBottom(nn.Module):
-    """Shared Bottom multi-task model.
+    """Shared Bottom.
 
     Args:
         features (list): the list of `Feature Class`, training by the bottom and tower module.

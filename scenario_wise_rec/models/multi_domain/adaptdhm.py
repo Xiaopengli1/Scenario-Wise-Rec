@@ -12,7 +12,7 @@ from ...basic.layers import EmbeddingLayer
 
 
 class AdaptDHM(nn.Module):
-    """adasparse
+    """adaptdhm
 
         Args:
             features (list[Feature Class]): features.

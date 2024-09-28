@@ -5,7 +5,7 @@ from ...basic.layers import MLP, EmbeddingLayer, GateNU
 
 class EPNet(nn.Module):
     """
-    Star
+    EPNet
 
     """
     def __init__(self, sce_features, agn_features, fcn_dims):
