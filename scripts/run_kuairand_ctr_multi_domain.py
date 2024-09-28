@@ -174,7 +174,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_path', default="./data/kuairand")
-    parser.add_argument('--model_name', default='m3oe')
+    parser.add_argument('--model_name', default='star')
     parser.add_argument('--epoch', type=int, default=1)  #100
     parser.add_argument('--learning_rate', type=float, default=1e-3)
     parser.add_argument('--batch_size', type=int, default=4096)  #4096
