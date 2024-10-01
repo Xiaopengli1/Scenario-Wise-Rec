@@ -90,7 +90,7 @@ def get_ali_ccp_data_dict_ppnet(data_path='./data/ali-ccp'):
     dense_cols = ['D109_14', 'D110_14', 'D127_14', 'D150_14', 'D508', 'D509', 'D702', 'D853']
     id_cols = ['101', '205']
     scenario_cols = ['domain_indicator']
-    sparse_cols = [col for col in col_names if col not in dense_cols and col not in id_cols and col not in ['click', 'purchase','domain_indicator','301']]
+    sparse_cols = [col for col in col_names if col not in dense_cols and col not in id_cols and col not in ['click', 'purchase', 'domain_indicator', '301']]
 
     domain_map = {1: 0, 2: 1, 3: 2}
     data["domain_indicator"] = data["301"].apply(lambda fea: domain_map[fea])
@@ -152,22 +152,16 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
         model = M2M(dense_feas + sparse_feas + scenario_feas, scenario_feas, domain_num, num_experts=4,
                     expert_output_size=16)
     elif model_name == "adaptdhm":
-        model = AdaptDHM(features=sparse_feas + scenario_feas, fcn_dims=[256, 128, 64, 32, 16, 8], cluster_num=3,
-                         beta=0.9,
-                         device=device)
+        model = AdaptDHM(features=sparse_feas + scenario_feas, fcn_dims=[256, 128, 64, 32, 16, 8], cluster_num=3, beta=0.9, device=device)
     elif model_name == "epnet":
         model = EPNet(sce_features=scenario_feas, agn_features=sparse_feas+dense_feas, fcn_dims=[256, 128, 64, 32, 16, 8])
     elif model_name == "ppnet":
         model = PPNet(id_features= id_feas, agn_features=sparse_feas+dense_feas+scenario_feas,domain_num= domain_num,fcn_dims=[256, 128, 64, 32, 16, 8])
     elif model_name == "m3oe":
-        model = M3oE(features=dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[512, 256, 256, 64], expert_num=4,
-                     exp_d=1, exp_t=1, bal_d=1, bal_t=1, device=device)
+        model = M3oE(features=dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[512, 256, 256, 64], expert_num=4, exp_d=1, exp_t=1, bal_d=1, bal_t=1, device=device)
     elif model_name == "hamur":
-        model = HamurLarge(dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[256, 128, 64, 64, 32, 16, 8],
-                            hyper_dims=[64],  k=65)
-    ctr_trainer = CTRTrainer(model, dataset_name, optimizer_params={"lr": learning_rate, "weight_decay": weight_decay},
-                             n_epoch=epoch, earlystop_patience=5, device=device, model_path=save_dir,
-                             scheduler_params={"step_size": 4, "gamma": 0.95})
+        model = HamurLarge(dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[256, 128, 64, 64, 32, 16, 8], hyper_dims=[64],  k=65)
+    ctr_trainer = CTRTrainer(model, dataset_name, optimizer_params={"lr": learning_rate, "weight_decay": weight_decay}, n_epoch=epoch, earlystop_patience=5, device=device, model_path=save_dir, scheduler_params={"step_size": 4, "gamma": 0.95})
     ctr_trainer.fit(train_dataloader, val_dataloader)
     domain_logloss, domain_auc, logloss, auc = ctr_trainer.evaluate_multi_domain_loss(ctr_trainer.model,
                                                                                       test_dataloader, domain_num)
@@ -193,7 +187,7 @@ if __name__ == '__main__':
     warnings.filterwarnings('ignore')
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_path', default="./data/ali-ccp")
-    parser.add_argument('--model_name', default='hamur')
+    parser.add_argument('--model_name', default='star')
     parser.add_argument('--epoch', type=int, default=1)  # 100
     parser.add_argument('--learning_rate', type=float, default=1e-3)
     parser.add_argument('--batch_size', type=int, default=4096)  # 4096
