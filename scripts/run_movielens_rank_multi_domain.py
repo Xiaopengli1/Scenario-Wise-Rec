@@ -222,7 +222,6 @@ def main(dataset_path, model_name, epoch, learning_rate, batch_size, weight_deca
     elif model_name == "hamur":
         model = HamurSmall(dense_feas + sparse_feas, domain_num=domain_num, fcn_dims=[256, 128], hyper_dims=[64], k=35)
     ctr_trainer = CTRTrainer(model, dataset_name, optimizer_params={"lr": learning_rate, "weight_decay": weight_decay}, n_epoch=epoch, earlystop_patience=4, device=device, model_path=save_dir,scheduler_params={"step_size": 2,"gamma": 0.85})
-    #scheduler_fn=torch.optim.lr_scheduler.StepLR,scheduler_params={"step_size": 2,"gamma": 0.8},
     ctr_trainer.fit(train_dataloader, val_dataloader)
     domain_logloss,domain_auc,logloss,auc = ctr_trainer.evaluate_multi_domain_loss(ctr_trainer.model, test_dataloader,domain_num)
     print(f'test auc: {auc} | test logloss: {logloss}')
@@ -243,7 +242,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_path', default="./data/ml-1m")
-    parser.add_argument('--model_name', default='hamur')
+    parser.add_argument('--model_name', default='star')
     parser.add_argument('--epoch', type=int, default=1)
     parser.add_argument('--learning_rate', type=float, default=1e-3)
     parser.add_argument('--batch_size', type=int, default=4096)  #4096
