@@ -180,3 +180,14 @@ We welcome any contribution that could help improve the benchmark, and don't for
 
 ## 7. Credits
 The framework is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
+
+## 8.Citations
+You could cite our paper if you find this repository interesting or helpful:
+```
+@article{li2024scenario,
+  title={Scenario-Wise Rec: A Multi-Scenario Recommendation Benchmark},
+  author={Li, Xiaopeng and Gao, Jingtong and Jia, Pengyue and Wang, Yichao and Wang, Wanyu and Wang, Yejing and Wang, Yuhao and Guo, Huifeng and Tang, Ruiming},
+  journal={arXiv preprint arXiv:2412.17374},
+  year={2024}
+}
+```
