@@ -182,7 +182,7 @@ We welcome any contribution that could help improve the benchmark, and don't for
 ## 7. Credits
 The framework is referred to [Torch-RecHub](https://github.com/datawhalechina/torch-rechub). Thanks to their contribution.
 
-## 8.Citations
+## 8.Citation
 You could cite our paper if you find this repository interesting or helpful:
 ```
 @article{li2024scenario,
