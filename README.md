@@ -9,6 +9,7 @@
     <a href="https://colab.research.google.com/drive/1dUX194vy2Ax7ZQAmyotsOAevZdz7jcaM?usp=sharing">
         <img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg">
     </a>
+    <a href='https://arxiv.org/abs/2412.17374'><img src='https://img.shields.io/badge/arXiv-2412.17374-b31b1b'></a>
     <a href="https://github.com/Xiaopengli1/Scenario-Wise-Rec">
         <img alt="Downloads" src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103">
     </a>
