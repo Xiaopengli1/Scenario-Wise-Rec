@@ -25,7 +25,7 @@
 
 [//]: # (English | [简体中文]&#40;README_CN.md&#41;)
 
-**Scenario-Wise Rec**, an open-sourced benchmark for multi-scenario/multi-domain recommendation.
+[**Scenario-Wise Rec**](https://arxiv.org/abs/2412.17374), an open-sourced benchmark for multi-scenario/multi-domain recommendation.
 
 ![structures](figures/structure_new2.png)
 
